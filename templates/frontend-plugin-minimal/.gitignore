@@ -1,0 +1,7 @@
+node_modules/
+dist/
+.idea/
+.tolgee_id
+.DS_Store
+# generated on the partner's machine by npm install
+package-lock.json

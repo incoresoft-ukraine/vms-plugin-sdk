@@ -1,0 +1,23 @@
+Copyright (c) 2026 Incoresoft LLC
+
+Documentation
+-------------
+The documentation in this repository (README.md, docs/ and the PDF files built from them) is
+licensed under the Creative Commons Attribution 4.0 International License (CC BY 4.0):
+https://creativecommons.org/licenses/by/4.0/legalcode
+
+You may share and adapt it for any purpose, provided you give appropriate credit to Incoresoft,
+link to the licence and indicate if changes were made.
+
+Code
+----
+The code in this repository (templates/ and tools/) is licensed under the MIT License; each
+template carries its own LICENSE file with the full text.
+
+Incoresoft SDK libraries
+------------------------
+The libraries the templates depend on are not part of this repository. The Java libraries
+com.incoresoft.commons:middleware and com.incoresoft:device-driver-sdk are published on Maven
+Central under the Apache License 2.0. The npm packages @incoresoft/incoresoft-ui,
+@incoresoft/incoresoft-icons and @incoresoft/incoresoft-toasts are distributed under the
+Incoresoft VMS Plugin SDK License shipped with each of them.

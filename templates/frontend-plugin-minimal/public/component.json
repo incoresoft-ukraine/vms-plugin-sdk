@@ -1,0 +1,116 @@
+[
+  {
+    "component": "ClientLayoutSamplePlugin",
+    "path": "/",
+    "type": "view",
+    "location": null
+  },
+  {
+    "component": "AdminLayoutSamplePlugin",
+    "path": "/",
+    "type": "view",
+    "location": "admin"
+  },
+  {
+    "component": "VClientHeaderPlusItem",
+    "path": "",
+    "type": "client_header_plus_item",
+    "location": null
+  },
+  {
+    "component": "VPluginIcon",
+    "path": "",
+    "type": "plugin_icon",
+    "location": null
+  },
+  {
+    "component": "VAdminSidebarMenuItem",
+    "path": "",
+    "type": "admin_sidebar_menu_item",
+    "location": null
+  },
+  {
+    "component": "VEventsAndRulesOptionsBlock",
+    "path": "",
+    "type": "admin_events_and_rules_options_block",
+    "location": null
+  },
+  {
+    "component": "VEventsAndRulesWhereBlock",
+    "path": "",
+    "type": "admin_events_and_rules_where_block",
+    "location": null
+  },
+  {
+    "component": "VAlarmsTypeColumn",
+    "path": "",
+    "type": "alarms_type_column",
+    "location": null
+  },
+  {
+    "component": "VAlarmsMessageColumn",
+    "path": "",
+    "type": "alarms_message_column",
+    "location": null
+  },
+  {
+    "component": "VAlarmsDetailsMessage",
+    "path": "",
+    "type": "alarms_details_message",
+    "location": null
+  },
+  {
+    "component": "VAlarmsDetailsPreview",
+    "path": "",
+    "type": "alarms_details_preview",
+    "location": null
+  },
+  {
+    "component": "VSearchFilterBlock",
+    "path": "",
+    "type": "client_search_filter_block",
+    "location": null
+  },
+  {
+    "component": "VSearchCard",
+    "path": "",
+    "type": "client_search_card",
+    "location": null
+  },
+  {
+    "component": "VSearchInfo",
+    "path": "",
+    "type": "client_search_info",
+    "location": null
+  },
+  {
+    "component": "VSearchAlarmInfo",
+    "path": "",
+    "type": "client_search_alarm_info",
+    "location": null
+  },
+  {
+    "component": "VNotificationItem",
+    "path": "",
+    "type": "plugin_notification_item",
+    "location": null
+  },
+  {
+    "component": "VClientLayoutCell",
+    "path": "",
+    "type": "client_layout_cell",
+    "location": null
+  },
+  {
+    "component": "VSelectCategoryModal",
+    "path": "",
+    "type": "plugin_select_modal",
+    "location": null
+  },
+  {
+    "component": "cellRegistration",
+    "path": "",
+    "type": "client_cell_registration",
+    "location": null
+  }
+]

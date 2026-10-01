@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  VMS backend plugin template ("Sample Plugin").
+
+  Release line: VMS 25.1 (Javalin 5, Java 21). See the vms-plugin-sdk documentation, chapter "Packaging, versioning, release".
+  for the version matrix of other release lines.
+
+  Everything marked "provided" is supplied by the VMS host at runtime and MUST NOT be
+  bundled into the plugin jar. Only your own third-party libraries (none in this template)
+  are packed by maven-assembly-plugin.
+-->
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <!-- TODO: change groupId/artifactId. artifactId is also used as the PF4J Plugin-Id below.
+         VERSION RULE: the host accepts a plugin only if Plugin-Version's major.minor equals the core's
+         release line — so 25.1.<patch> for a 25.1.x core. Put your own
+         product version into Plugin-Name or a custom manifest attribute if you need it. -->
+    <groupId>com.example.vms</groupId>
+    <artifactId>vms-sample-plugin</artifactId>
+    <version>25.1.0</version>
+    <packaging>jar</packaging>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler.source>21</maven.compiler.source>
+        <maven.compiler.target>21</maven.compiler.target>
+        <jar-output-dir>build</jar-output-dir>
+
+        <!-- ===== VMS SDK version matrix for release line 25.1 =====
+             Newest 25.1 artifacts at the time of writing; any 25.1.x combination is compatible.
+             A plugin depends on the public host API only: `middleware` (and `device-driver-sdk` if it
+             resolves cameras/devices). Never mix 26.1 libraries (Javalin 7) with a 25.1 core. -->
+        <vms.release>25.1</vms.release>
+        <middleware.version>25.1.26</middleware.version>
+        <device-driver-sdk.version>25.1.27</device-driver-sdk.version>
+        <javalin.version>5.6.3</javalin.version>
+        <jooq.version>3.18.7</jooq.version>
+        <guice.version>7.0.0</guice.version>
+        <jackson.version>2.14.2</jackson.version>
+        <slf4j.version>2.0.17</slf4j.version>
+
+        <!-- Human readable plugin name shown in Marketplace / Settings > Plugins -->
+        <plugin.name>Sample Plugin</plugin.name>
+        <plugin.description>SAMPLE_PLUGIN_DESCRIPTION</plugin.description>
+        <plugin.provider>Example Corp</plugin.provider>
+    </properties>
+
+
+    <dependencies>
+        <!-- ===== VMS SDK (provided by the host) ===== -->
+        <dependency>
+            <groupId>com.incoresoft.commons</groupId>
+            <artifactId>middleware</artifactId>
+            <version>${middleware.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <!-- Only needed if you resolve cameras/devices (DeviceManager) -->
+        <dependency>
+            <groupId>com.incoresoft</groupId>
+            <artifactId>device-driver-sdk</artifactId>
+            <version>${device-driver-sdk.version}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- ===== Host runtime libraries (provided) ===== -->
+        <dependency>
+            <groupId>io.javalin</groupId>
+            <artifactId>javalin</artifactId>
+            <version>${javalin.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.google.inject</groupId>
+            <artifactId>guice</artifactId>
+            <version>${guice.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <!-- The host ships jOOQ Professional (org.jooq.pro). The open-source artifact has the
+                 same packages, so compiling against it is fine and needs no license. -->
+            <groupId>org.jooq</groupId>
+            <artifactId>jooq</artifactId>
+            <version>${jooq.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>${jackson.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>${slf4j.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <!-- Bean validation annotations; the host validates rule options with them when a rule
+                 is saved. Provided by the host at runtime. -->
+            <groupId>javax.validation</groupId>
+            <artifactId>validation-api</artifactId>
+            <version>2.0.1.Final</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <!-- PF4J: the @Extension annotation processor discovers your VmsExtension subclass
+                 and writes META-INF/extensions.idx. Transitively present via `middleware`;
+                 declared explicitly so the processor is guaranteed on the compile classpath. -->
+            <groupId>org.pf4j</groupId>
+            <artifactId>pf4j</artifactId>
+            <version>3.8.0</version>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.13.0</version>
+                <configuration>
+                    <release>21</release>
+                </configuration>
+            </plugin>
+
+            <!-- Fat jar with the PF4J manifest. The host reads these attributes:
+                 Plugin-Id (unique id = marketplace product id), Plugin-Version (SemVer),
+                 Plugin-Name, Plugin-Description (locale key or text), Plugin-Provider,
+                 Plugin-Icon-Resource-Path (classpath resource). Plugin-Requires is not set on purpose: when it
+                 does not match, PF4J silently keeps the plugin disabled. -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <version>3.7.1</version>
+                <configuration>
+                    <descriptorRefs>
+                        <descriptorRef>jar-with-dependencies</descriptorRef>
+                    </descriptorRefs>
+                    <finalName>${project.artifactId}-${project.version}</finalName>
+                    <appendAssemblyId>false</appendAssemblyId>
+                    <outputDirectory>${jar-output-dir}</outputDirectory>
+                    <archive>
+                        <manifest>
+                            <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+                        </manifest>
+                        <manifestEntries>
+                            <Plugin-Id>${project.artifactId}</Plugin-Id>
+                            <Plugin-Version>${project.version}</Plugin-Version>
+                            <Plugin-Name>${plugin.name}</Plugin-Name>
+                            <Plugin-Description>${plugin.description}</Plugin-Description>
+                            <Plugin-Provider>${plugin.provider}</Plugin-Provider>
+                            <Plugin-Icon-Resource-Path>icon.svg</Plugin-Icon-Resource-Path>
+                            <!-- Your own product version. The host does not show it; keep it for your support. -->
+                            <Vendor-Version>1.0.0</Vendor-Version>
+                        </manifestEntries>
+                    </archive>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>make-assembly</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+</project>

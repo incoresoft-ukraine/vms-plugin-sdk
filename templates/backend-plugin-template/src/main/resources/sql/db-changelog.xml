@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Liquibase changelog of the plugin. The host applies it on every plugin start through
+  DatabaseConnector.checkStructure("sql/db-changelog.xml", classLoader), into the SAME database the
+  VMS core uses. Prefix every table with your plugin name.
+
+  logicalFilePath: every plugin ships its changelog under the same path, and Liquibase identifies a
+  changeSet by id + author + path. A unique logicalFilePath keeps our changeSets from being mistaken
+  for another plugin's. Rename it together with the plugin.
+
+  An applied changeSet must never be edited (Liquibase checks its checksum); add a new one instead.
+-->
+<databaseChangeLog
+        logicalFilePath="sample_plugin/db-changelog.xml"
+        objectQuotingStrategy="QUOTE_ALL_OBJECTS"
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.17.xsd">
+
+    <property name="now" value="sysdate" dbms="oracle"/>
+    <property name="now" value="GETDATE()" dbms="mssql"/>
+    <property name="now" value="now(3)" dbms="mysql"/>
+    <property name="now" value="now()" dbms="postgresql"/>
+    <property name="now" value="CURRENT_TIMESTAMP" dbms="h2,sqlite"/>
+
+    <!-- Categories are managed in Admin Center. source_id is the stable id rules refer to. -->
+    <changeSet id="sample-001-categories" author="sample-plugin">
+        <createTable tableName="sample_categories">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="source_id" type="VARCHAR(36)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="name" type="VARCHAR(128)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="created_at" type="TIMESTAMP(3)" defaultValueComputed="${now}">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="sample-002-items" author="sample-plugin">
+        <createTable tableName="sample_items">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="text" type="VARCHAR(512)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="category_id" type="BIGINT">
+                <constraints nullable="false"
+                             foreignKeyName="fk_sample_items_category"
+                             referencedTableName="sample_categories"
+                             referencedColumnNames="id"/>
+            </column>
+            <column name="created_by" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_at" type="TIMESTAMP(3)" defaultValueComputed="${now}">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <createIndex tableName="sample_items" indexName="idx_sample_items_category">
+            <column name="category_id"/>
+        </createIndex>
+        <!-- The retention task deletes by created_at. -->
+        <createIndex tableName="sample_items" indexName="idx_sample_items_created_at">
+            <column name="created_at"/>
+        </createIndex>
+    </changeSet>
+
+    <!-- Added later: a camera behind a category. A new changeSet, because the applied ones are frozen. -->
+    <changeSet id="sample-003-cameras" author="sample-plugin">
+        <addColumn tableName="sample_categories">
+            <column name="camera_id" type="INT"/>
+        </addColumn>
+        <!-- Copied from the category when the item is created, so old items keep their camera. -->
+        <addColumn tableName="sample_items">
+            <column name="camera_id" type="INT"/>
+        </addColumn>
+    </changeSet>
+</databaseChangeLog>

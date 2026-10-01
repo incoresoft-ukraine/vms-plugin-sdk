@@ -1,0 +1,16 @@
+{
+  "title": "Sample Plugin",
+  "dev_path": "http://localhost:8030/resources/sample_plugin/app.js",
+  "alarms_available": true,
+  "routes_permissions": {
+    "/sample_plugin": "ViewSampleItems"
+  },
+  "client_permissions": {
+    "search": [
+      "ViewSampleItems"
+    ],
+    "plugin_page": [
+      "ViewSampleItems"
+    ]
+  }
+}
