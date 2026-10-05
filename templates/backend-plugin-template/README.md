@@ -6,9 +6,9 @@ tables, permissions, alarm rule type, live feed and a place to ship your fronten
 
 Companion repositories:
 
-- `vms-plugin-frontend-template` — the matching Vue 3 frontend; a build of it is already in
+- [vms-plugin-frontend-template](https://github.com/incoresoft-ukraine/vms-plugin-frontend-template) — the matching Vue 3 frontend; a build of it is already in
   `src/main/resources/public/`.
-- `vms-plugin-sdk` — the documentation. This file only gets you building; the SDK's chapter 03
+- [vms-plugin-sdk](https://github.com/incoresoft-ukraine/vms-plugin-sdk) — the documentation. This file only gets you building; the SDK's chapter 03
   explains every piece.
 
 ## What the sample does

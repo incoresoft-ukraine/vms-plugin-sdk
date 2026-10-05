@@ -7,8 +7,8 @@ fills the rule-wizard, alarm, notification, Search and layout-cell slots of the 
 
 Companion repositories:
 
-- `vms-plugin-backend-template` — the Java backend this UI calls, and the jar that ships this bundle.
-- `vms-plugin-sdk` — the documentation; chapter 04 explains this template and lists every UI slot.
+- [vms-plugin-backend-template](https://github.com/incoresoft-ukraine/vms-plugin-backend-template) — the Java backend this UI calls, and the jar that ships this bundle.
+- [vms-plugin-sdk](https://github.com/incoresoft-ukraine/vms-plugin-sdk) — the documentation; chapter 04 explains this template and lists every UI slot.
 
 ## What the sample does
 
