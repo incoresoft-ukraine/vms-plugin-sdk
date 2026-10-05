@@ -88,7 +88,7 @@ function buildTo(outDir, { name, title, subtitle, files, landscapeIds = ['doc-04
   const cover = `<div class="cover">
   <h1>${title}</h1>
   <div class="sub">${subtitle}</div>
-  <div class="meta"><b>${lang === 'uk' ? 'Цільова лінія релізів' : 'Target release line'}:</b> VMS 26.1 (Javalin 7, Java 21, Vue 3.4, Module Federation)<br>
+  <div class="meta"><b>${lang === 'uk' ? 'Цільова лінія релізів' : 'Target release line'}:</b> VMS 25.1 (Javalin 5, Java 21, Vue 3.4, Module Federation)<br>
   <b>${lang === 'uk' ? 'Дата' : 'Generated'}:</b> ${today}</div>
 </div>`
   const html = `<!doctype html><html lang="${lang}"><head><meta charset="utf-8"><title>${title.replace(/<br>/g, ' ')}</title><style>${css}\n${landscapeCss}</style></head><body>${cover}${tocHtml}${body}</body></html>`
@@ -119,5 +119,3 @@ build({
 // 2. Two-page overview, EN and UK
 build({ name: 'VMS-Plugin-SDK-Overview', title: 'Incoresoft VMS<br>Plugin SDK', subtitle: 'Overview for technical decision makers',
   files: docFiles(f => f.startsWith('00-') && !f.includes('.uk.')), landscapeIds: [] })
-build({ name: 'VMS-Plugin-SDK-Overview.uk', title: 'Incoresoft VMS<br>Plugin SDK', subtitle: 'Огляд для технічних керівників', lang: 'uk',
-  files: docFiles(f => f.startsWith('00-') && f.includes('.uk.')), landscapeIds: [] })

@@ -4,19 +4,11 @@ Documentation and templates for building **third-party plugins for Incoresoft VM
 **25.1**. Everything here was checked against the VMS host and the sample plugin that the templates
 form; where a statement is a recommendation rather than observed behaviour, the text says so.
 
-> **Стислий вступ українською.** Плагін VMS складається з двох частин: Java-jar для бекенду
-> (розширення `VmsExtension`, Guice, Javalin 5, jOOQ/Liquibase) та Vue 3 бандла для фронтенду
-> (Webpack Module Federation), який упаковується всередину того ж jar під `public/`. Бекенд
-> реєструє REST/WS-ендпоінти, права, типи правил і тривог, сповіщення, обʼєкти для карт і планів;
-> фронтенд декларує у `component.json`, які компоненти вставляти у слоти інтерфейсу VMS (вкладки,
-> пошук, тривоги, сповіщення, правила, карти, комірки розкладки). Документація написана
-> англійською, бо цільова аудиторія — зовнішні розробники.
-
 ## Contents
 
 | # | Document | What you get |
 |---|---|---|
-| 00 | [Overview](docs/00-overview.md) ([UK](docs/00-overview.uk.md)) | Two pages for decision makers: capabilities, requirements, process, rules |
+| 00 | [Overview](docs/00-overview.md) | Two pages for decision makers: capabilities, requirements, process, rules |
 | 01 | [Architecture](docs/01-architecture.md) | What a plugin is, plugin types, identifiers, lifecycle, how the web client loads a plugin |
 | 02 | [Getting started](docs/02-getting-started.md) | Prerequisites, the sample plugin in thirty minutes, the development loop, troubleshooting |
 | 03 | [Backend](docs/03-backend.md) | `pom.xml` and manifest, `VmsExtension`, Guice, database, REST, WebSocket, host services, permissions, rules and alarms, retention, cameras, maps |
@@ -39,7 +31,7 @@ New to VMS: 01 → 02, then 03 and 04 while coding, 05 when shipping.
 
 | File | Audience | Contents |
 |---|---|---|
-| `VMS-Plugin-SDK-Overview.pdf` (EN), `VMS-Plugin-SDK-Overview.uk.pdf` (UK) | technical decision makers | `docs/00-overview` |
+| `VMS-Plugin-SDK-Overview.pdf` | technical decision makers | `docs/00-overview` |
 | `VMS-Plugin-SDK-Developer-Guide.pdf` and this repository | partner developers | README, `docs/00–05`, templates |
 
 The documentation mentions Incoresoft's own plugins (POS terminals, access control) as the origin
